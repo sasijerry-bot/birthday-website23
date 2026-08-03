@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Playfair+Display:wght@500;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       CUSTOM CURSOR (heart icon that follows the mouse)
+  ========================================================== -->
+  <div class="custom-cursor" id="customCursor">❤</div>
+
+  <!-- =========================================================
+       LOADING SCREEN
+  ========================================================== -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">
+      <svg viewBox="0 0 32 29" class="loading-heart-svg">
+        <path d="M16 29C16 29 0 19.5 0 8.9C0 3.98 4 0 8.7 0C11.7 0 14.3 1.6 16 4.1C17.7 1.6 20.3 0 23.3 0C28 0 32 3.98 32 8.9C32 19.5 16 29 16 29Z"/>
+      </svg>
+    </div>
+    <p class="loading-text">wrapping up something special<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+  </div>
+
+  <!-- =========================================================
+       AMBIENT BACKGROUND LAYERS (particles / hearts / stars)
+  ========================================================== -->
+  <canvas id="particleCanvas"></canvas>
+  <div class="floating-hearts" id="floatingHearts"></div>
+  <div class="floating-balloons" id="floatingBalloons"></div>
+  <div class="floating-roses" id="floatingRoses"></div>
+
+  <!-- =========================================================
+       TOP NAV / PROGRESS / THEME TOGGLE
+  ========================================================== -->
+  <header class="site-nav" id="siteNav">
+    <div class="nav-brand">🎂 <span>For You</span></div>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#gallery" data-nav>Gallery</a>
+      <a href="#timeline" data-nav>Memories</a>
+      <a href="#questions" data-nav>Questions</a>
+      <a href="#surprise" data-nav>Surprise</a>
+      <a href="#final" data-nav>Finale</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle light and dark mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <button class="icon-btn nav-burger" id="navBurger" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- =========================================================
+       MUSIC PLAYER (fixed widget)
+  ========================================================== -->
+  <div class="music-player" id="musicPlayer">
+    <button class="music-icon" id="musicToggle" aria-label="Play or pause music">
+      <span class="music-bars"><i></i><i></i><i></i><i></i></span>
+      <span class="music-note">♪</span>
+    </button>
+    <div class="music-panel" id="musicPanel">
+      <p class="music-title">🎵 Our Song</p>
+      <div class="music-controls-row">
+        <button id="playPauseBtn" class="play-pause-btn">▶</button>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" />
+      </div>
+      <p class="music-hint">Add your song to <code>assets/music/song.mp3</code></p>
+    </div>
+  </div>
+  <audio id="bgMusic" loop preload="none">
+    <source src="assets/music/song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+  <main id="mainContent">
+
+    <!-- ---------- LANDING SCREEN ---------- -->
+    <section class="screen landing-screen" id="landingScreen">
+      <div class="landing-glow"></div>
+      <div class="glass-card landing-card fade-in-up">
+        <p class="eyebrow">a little something, made for you</p>
+        <h1 class="landing-title">
+          <span class="typewriter" id="landingTitleText"></span>
+        </h1>
+        <p class="landing-sub">🎂 A celebration wrapped in memories 🎂</p>
+
+        <form class="name-form" id="nameForm">
+          <label for="nameInput" class="name-label">Enter Your Name</label>
+          <input type="text" id="nameInput" class="name-input" placeholder="Your beautiful name..." autocomplete="off" required />
+          <button type="submit" class="begin-btn">
+            <span>Begin the Journey</span> <span class="heart-pulse">❤️</span>
+          </button>
+        </form>
+
+        <p class="welcome-msg" id="welcomeMsg"></p>
+      </div>
+      <div class="scroll-cue" id="scrollCue">
+        <span>scroll to begin</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Everything below is hidden until the name is entered -->
+    <div id="journeyContent" class="journey-content">
+
+      <!-- ---------- PHOTO GALLERY ---------- -->
+      <section class="screen gallery-screen" id="gallery">
+        <div class="section-heading reveal">
+          <p class="eyebrow">✨ take a look</p>
+          <h2>Our Photo Gallery</h2>
+        </div>
+
+        <div class="slideshow glass-card reveal">
+          <div class="slideshow-hearts" id="slideshowHearts"></div>
+          <div class="slideshow-track" id="slideshowTrack"><!-- slides injected by JS --></div>
+          <button class="slide-nav prev" id="prevSlide" aria-label="Previous photo">&#10094;</button>
+          <button class="slide-nav next" id="nextSlide" aria-label="Next photo">&#10095;</button>
+          <div class="slide-dots" id="slideDots"></div>
+        </div>
+      </section>
+
+      <!-- ---------- EMOTIONAL TIMELINE ---------- -->
+      <section class="screen timeline-screen" id="timeline">
+        <div class="section-heading reveal">
+          <p class="eyebrow">a story, told in moments</p>
+          <h2>The Emotional Timeline</h2>
+        </div>
+
+        <div class="timeline" id="timelineWrap">
+          <div class="timeline-line"></div>
+
+          <div class="timeline-block reveal">
+            <div class="timeline-marker">✨</div>
+            <div class="glass-card timeline-card">
+              <h3>Our Memories</h3>
+              <p>Every laugh, every quiet afternoon, every silly inside joke &mdash; they all live here.</p>
+              <div class="mini-grid" data-mini="0-4"></div>
+            </div>
+          </div>
+
+          <div class="timeline-block reveal">
+            <div class="timeline-marker">✨</div>
+            <div class="glass-card timeline-card">
+              <h3>Beautiful Moments</h3>
+              <p>The little things that turned into the moments we replay in our heads.</p>
+              <div class="mini-grid" data-mini="4-8"></div>
+            </div>
+          </div>
+
+          <div class="timeline-block reveal">
+            <div class="timeline-marker">✨</div>
+            <div class="glass-card timeline-card">
+              <h3>Special Days</h3>
+              <p>The days worth circling on the calendar, again and again.</p>
+              <div class="mini-grid" data-mini="8-12"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- HEART TOUCHING QUESTIONS ---------- -->
+      <section class="screen questions-screen" id="questions">
+        <div class="section-heading reveal">
+          <p class="eyebrow">just between us</p>
+          <h2>A Few Questions For You</h2>
+        </div>
+
+        <div class="glass-card question-card reveal">
+          <div class="question-progress">
+            <span id="qCurrent">1</span> / <span id="qTotal">10</span>
+          </div>
+          <div class="question-body" id="questionBody">
+            <p class="question-text" id="questionText"></p>
+            <textarea id="questionInput" class="question-input" placeholder="Type your answer here..." rows="3"></textarea>
+            <button class="submit-answer-btn" id="submitAnswerBtn">Submit <span>❤️</span></button>
+          </div>
+          <div class="heart-burst" id="heartBurst"></div>
+        </div>
+      </section>
+
+      <!-- ---------- MEMORY WALL ---------- -->
+      <section class="screen memory-wall-screen hidden" id="memoryWall">
+        <div class="memory-wall-content glass-card reveal">
+          <div class="big-heart">💖</div>
+          <h2 id="memoryWallThanks">Thank you ❤️</h2>
+          <p>Your memories will always have a special place.</p>
+          <div class="memory-answers" id="memoryAnswers"></div>
+        </div>
+      </section>
+
+      <!-- ---------- SURPRISE BUTTON ---------- -->
+      <section class="screen surprise-screen" id="surprise">
+        <div class="section-heading reveal">
+          <p class="eyebrow">one more thing</p>
+          <h2>A Little Surprise</h2>
+        </div>
+        <button class="surprise-btn reveal" id="surpriseBtn">
+          <span class="surprise-glow"></span>
+          🎁 Open Your Surprise
+        </button>
+
+        <div class="surprise-stage" id="surpriseStage">
+          <div class="cake-wrap" id="cakeWrap">
+            <div class="cake">
+              <div class="candle"><div class="flame"></div></div>
+              <div class="cake-top"></div>
+              <div class="cake-middle"></div>
+              <div class="cake-base"></div>
+              <div class="cake-plate"></div>
+            </div>
+          </div>
+          <p class="surprise-message" id="surpriseMessage"></p>
+        </div>
+      </section>
+
+      <!-- ---------- FINAL SCREEN ---------- -->
+      <section class="screen final-screen" id="final">
+        <div class="final-stars" id="finalStars"></div>
+        <div class="final-heart-wrap">
+          <div class="final-heart">💖</div>
+          <div class="final-heart-ring"></div>
+        </div>
+        <h2 class="final-title typewriter" id="finalTitleText"></h2>
+        <p class="final-signoff">with all my heart</p>
+        <button class="replay-btn" id="replayBtn">↻ Watch Again</button>
+      </section>
+
+    </div><!-- /journeyContent -->
+  </main>
+
+  <!-- =========================================================
+       LIGHTBOX
+  ========================================================== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</button>
+    <img src="" alt="Memory" id="lightboxImg" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</button>
+  </div>
+
+  <!-- =========================================================
+       FULLSCREEN FX LAYERS (confetti / fireworks / hearts burst)
+  ========================================================== -->
+  <canvas id="fxCanvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
