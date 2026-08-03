@@ -34,9 +34,9 @@ const CONFIG = {
   // Falls back to elegant placeholder photography if those files are missing.
   useLocalImages: true,
   photoFiles: [
-    "assets/image/photo1.jpeg",
-    "assets/image/photo2.jpeg",
-    "assets/image/photo3.jpeg"
+    "assets/images/photo1.jpeg",
+    "assets/images/photo2.jpeg",
+    "assets/images/photo3.jpeg"
   ],
   questions: [
     "What was your happiest memory with me? ❤️",
@@ -61,7 +61,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 const rand = (min, max) => Math.random() * (max - min) + min;
 
 function photoUrl(index) {
-  if (CONFIG.useLocalImages) return `assets/image/photo${index + 1}.jpeg`;
+  if (CONFIG.useLocalImages) return `assets/images/photo${index + 1}.jpeg`;
   // Deterministic elegant placeholder photography (loads from the visitor's browser).
   return `https://picsum.photos/seed/birthday-memory-${index}/700/560`;
 }
