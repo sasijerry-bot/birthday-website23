@@ -62,6 +62,7 @@ const rand = (min, max) => Math.random() * (max - min) + min;
 
 function photoUrl(index) {
   if (CONFIG.useLocalImages) return `assets/images/photo${index + 1}.jpeg`;
+  
   // Deterministic elegant placeholder photography (loads from the visitor's browser).
   return `https://picsum.photos/seed/birthday-memory-${index}/700/560`;
 }
