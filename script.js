@@ -29,14 +29,32 @@ async function saveToGoogleSheet(name, question, answer) {
 --------------------------------------------------------- */
 const CONFIG = {
   birthdayPersonName: "JOSHWA",          // shown in the landing title
-  photoCount: 3,                       // how many gallery photos to generate
+  photoCount: 21,                       // how many gallery photos to generate
   // Replace with your own image at assets/image/photo1.jpeg ... etc.
   // Falls back to elegant placeholder photography if those files are missing.
   useLocalImages: true,
   photoFiles: [
     "assets/images/photo1.jpeg",
     "assets/images/photo2.jpeg",
-    "assets/images/photo3.jpeg"
+    "assets/images/photo3.jpeg",
+    "assets/images/photo4.jpeg",
+    "assets/images/photo5.jpeg",
+    "assets/images/photo6.jpeg",
+    "assets/images/photo7.jpeg",
+    "assets/images/photo8.jpeg",
+    "assets/images/photo9.jpeg",
+    "assets/images/photo10.jpeg",
+    "assets/images/photo11.jpeg",
+    "assets/images/photo12.jpeg",
+    "assets/images/photo13.jpeg",
+    "assets/images/photo14.jpeg",
+    "assets/images/photo15.jpeg",
+    "assets/images/photo16.jpeg",
+    "assets/images/photo17.jpeg",
+    "assets/images/photo18.jpeg",
+    "assets/images/photo19.jpeg",
+    "assets/images/photo20.jpeg",
+    "assets/images/photo20.jpeg",
   ],
   questions: [
     "What was your happiest memory with me? ❤️",
